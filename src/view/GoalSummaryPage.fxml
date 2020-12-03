@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="667.0" prefWidth="375.0" style="-fx-background-color: lightgray; -fx-border-color: #225198; -fx-border-width: 15; -fx-max-height: 667; -fx-max-width: 375;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLDocumentController">
+   <children>
+      <Text fill="#225198" layoutX="46.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calorie Crunch">
+         <font>
+            <Font name="Rockwell" size="40.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" color="#0000004d" height="15.0" offsetY="5.0" radius="7.0" width="15.0" />
+         </effect>
+      </Text>
+      <Label layoutX="170.0" layoutY="240.0" text="Goal">
+         <font>
+            <Font name="Rockwell" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="goalField" layoutX="126.0" layoutY="173.0" prefHeight="54.0" prefWidth="127.0" />
+      <Text layoutX="101.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calories Remaining">
+         <font>
+            <Font name="Rockwell" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="caloriesRemainingField" layoutX="126.0" layoutY="297.0" prefHeight="54.0" prefWidth="127.0" />
+      <Button fx:id="previousButton" layoutX="50.0" layoutY="575.0" mnemonicParsing="false" onAction="#previousPage" prefHeight="36.0" prefWidth="98.0" style="-fx-background-radius: 10px;" text="Previous">
+         <font>
+            <Font name="Rockwell" size="16.0" />
+         </font>
+      </Button>
+      <TextField fx:id="motivationalMessageField" layoutX="50.0" layoutY="425.0" prefHeight="89.0" prefWidth="272.0" />
+   </children>
+</AnchorPane>

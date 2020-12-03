@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="667.0" prefWidth="375.0" style="-fx-background-color: lightgray; -fx-border-color: #225198; -fx-border-width: 15; -fx-max-height: 667; -fx-max-width: 375;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="controller.FXMLDocumentController">
+   <children>
+      <Text fill="#225198" layoutX="46.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calorie Crunch">
+         <font>
+            <Font name="Rockwell" size="40.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" color="#0000004d" height="15.0" offsetY="5.0" radius="7.0" width="15.0" />
+         </effect>
+      </Text>
+      <Label layoutX="27.0" layoutY="227.0" text="Intake Goal:">
+         <font>
+            <Font name="Rockwell" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="intakeGoalField" layoutX="161.0" layoutY="222.0" prefHeight="35.0" prefWidth="96.0" />
+      <Button fx:id="saveGoalButton" layoutX="267.0" layoutY="221.0" mnemonicParsing="false" onAction="#saveIntakeGoal" prefHeight="37.0" prefWidth="76.0" style="-fx-background-radius: 10px;" text="Save">
+         <font>
+            <Font name="Rockwell" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="updateIntakeButton" layoutX="269.0" layoutY="301.0" mnemonicParsing="false" onAction="#updateIntake" prefHeight="37.0" prefWidth="76.0" style="-fx-background-radius: 10px;" text="Update">
+         <font>
+            <Font name="Rockwell" size="16.0" />
+         </font>
+      </Button>
+      <Text layoutX="25.0" layoutY="327.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recent Intake:">
+         <font>
+            <Font name="Rockwell" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="recentIntakeField" layoutX="163.0" layoutY="303.0" prefHeight="35.0" prefWidth="96.0" />
+      <Text fx:id="totalCaloriesText" fill="#225198" layoutX="155.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="XXX">
+         <font>
+            <Font name="Rockwell" size="35.0" />
+         </font>
+      </Text>
+      <Text layoutX="128.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Calories">
+         <font>
+            <Font name="Rockwell" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="signOutButton" layoutX="50.0" layoutY="529.0" mnemonicParsing="false" onAction="#signOut" prefHeight="46.0" prefWidth="114.0" style="-fx-background-radius: 10px;" text="Sign Out">
+         <font>
+            <Font name="Rockwell" size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="checkGoalButton" layoutX="208.0" layoutY="529.0" mnemonicParsing="false" onAction="#checkGoal" prefHeight="46.0" prefWidth="114.0" style="-fx-background-radius: 10px;" text="Check Goal">
+         <font>
+            <Font name="Rockwell" size="16.0" />
+         </font>
+      </Button>
+   </children>
+   <!--Remove Me-->
+</AnchorPane>
