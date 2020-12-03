@@ -39,8 +39,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button loginButton; 
     
+    
+    //second view 
+    
     @FXML
     private Button checkGoalButton;
+    
     @FXML
     private Button signOutButton;
     @FXML
@@ -49,6 +53,13 @@ public class FXMLDocumentController implements Initializable {
     private Button updateIntakeButton;
     @FXML
     private Button totalCaloriesButton;
+    
+    @FXML
+    private TextField intakeGoalField;
+    @FXML
+    private TextField recentIntakeField;
+    @FXML
+    private Text totalCaloriesText;
     
     //third view
     @FXML
@@ -67,12 +78,7 @@ public class FXMLDocumentController implements Initializable {
     
     //end third view
     
-    @FXML
-    private TextField intakeGoalField;
-    @FXML
-    private TextField recentIntakeField;
-    @FXML
-    private Text totalCaloriesText;
+  
     
     
     
@@ -82,9 +88,10 @@ public class FXMLDocumentController implements Initializable {
 
     }
     
-    
+    //first UI
     @FXML
     private void loginUser(ActionEvent event) throws IOException {
+     
        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/InfoInputScreen.fxml")); 
        Parent InfoInputScreen = loader.load(); 
        Scene tableViewScene = new Scene(InfoInputScreen);
@@ -95,6 +102,7 @@ public class FXMLDocumentController implements Initializable {
         
     }
   
+
     
     //Second UI
     @FXML
@@ -117,9 +125,17 @@ public class FXMLDocumentController implements Initializable {
     }
     
     @FXML
-    private void showTotalCalories (ActionEvent event) {
-        
+    private void intakeGoal(){
+       //sets this text into the table for the person logged in 
+       //gets the text to give to the goal text in UI 3 
     }
+    
+    
+    @FXML
+    private void showTotalCalories (ActionEvent event) {
+      //takes the most updated number from recent intake and subtrrracts from the goal and displays in the text field 
+    }
+    
     @FXML
     private void checkGoal(ActionEvent event) throws IOException {
        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GoalSummaryPage.fxml")); 
@@ -130,7 +146,6 @@ public class FXMLDocumentController implements Initializable {
        stage.setScene(tableViewScene);
        stage.show();
     }
-    
     
     //third UI 
     
@@ -143,6 +158,16 @@ public class FXMLDocumentController implements Initializable {
        Stage stage = new Stage();
        stage.setScene(tableViewScene);
        stage.show();
+    }
+    
+    @FXML 
+    private void displayGoal(){
+        //takes the text that was put on the previous UI intakeGoal method / text field 
+    }
+    
+    @FXML 
+    private void motivationalMessage(){
+        // sets a motivational message 
     }
     
     
