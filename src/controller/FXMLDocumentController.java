@@ -43,6 +43,8 @@ public class FXMLDocumentController implements Initializable {
     private Button saveGoalButton;
     @FXML
     private Button updateIntakeButton;
+    @FXML
+    private Button totalCaloriesButton;
     
     //third view
     @FXML
@@ -56,6 +58,8 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private Button previousButton;
+    
+    
     
     //end third view
     
@@ -74,26 +78,35 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void loginUser(ActionEvent event) {
-
-        System.out.println("You clicked me!");
+      //show the  input screen
         
     }
+    
+    //Second UI
     @FXML
     private void saveIntakeGoal(ActionEvent event) {
-
+        //save the goal they set to their name and ID in the table 
     }
     @FXML
     private void updateIntake(ActionEvent event) {
-        
+        // update their current intake in the table 
     }
     @FXML
     private void signOut(ActionEvent event) {
+        
+    }
+    
+    @FXML
+    private void showTotalCalories (ActionEvent event) {
         
     }
     @FXML
     private void checkGoal(ActionEvent event) {
         
     }
+    
+    
+    //third UI 
     
     @FXML
     private void previousPage(ActionEvent event) {
@@ -103,12 +116,10 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //credentialsDropDown.getItems().add("Active Cruncher");
-        //credentialsDropDown.getItems().add("Personal Trainer");
-        //credentialsDropDown.getItems().add("Medical Professional");
-                
-System.out.println(""); //remove me
-   // comboBox.getSelectionModel().select("Option B");
+        credentialsDropDown.getItems().add("Active Cruncher");
+        credentialsDropDown.getItems().add("Personal Trainer");
+        credentialsDropDown.getItems().add("Medical Professional");
+
 
     }    
     
