@@ -5,16 +5,21 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.scene.control.ComboBox;
+import javafx.stage.Stage;
 
 /**
  *
@@ -33,7 +38,6 @@ public class FXMLDocumentController implements Initializable {
    
     @FXML
     private Button loginButton; 
-    
     
     @FXML
     private Button checkGoalButton;
@@ -71,16 +75,26 @@ public class FXMLDocumentController implements Initializable {
     private Text totalCaloriesText;
     
     
+    
+    
     @FXML
     private void handleButtonAction(ActionEvent event) {
 
     }
     
+    
     @FXML
-    private void loginUser(ActionEvent event) {
-      //show the  input screen
+    private void loginUser(ActionEvent event) throws IOException {
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/InfoInputScreen.fxml")); 
+       Parent InfoInputScreen = loader.load(); 
+       Scene tableViewScene = new Scene(InfoInputScreen);
+       
+       Stage stage = new Stage();
+       stage.setScene(tableViewScene);
+       stage.show();
         
     }
+  
     
     //Second UI
     @FXML
@@ -92,8 +106,14 @@ public class FXMLDocumentController implements Initializable {
         // update their current intake in the table 
     }
     @FXML
-    private void signOut(ActionEvent event) {
-        
+    private void signOut(ActionEvent event) throws IOException {
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginPage.fxml")); 
+       Parent InfoInputScreen = loader.load(); 
+       Scene tableViewScene = new Scene(InfoInputScreen);
+       
+       Stage stage = new Stage();
+       stage.setScene(tableViewScene);
+       stage.show();   
     }
     
     @FXML
@@ -101,24 +121,36 @@ public class FXMLDocumentController implements Initializable {
         
     }
     @FXML
-    private void checkGoal(ActionEvent event) {
-        
+    private void checkGoal(ActionEvent event) throws IOException {
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GoalSummaryPage.fxml")); 
+       Parent InfoInputScreen = loader.load(); 
+       Scene tableViewScene = new Scene(InfoInputScreen);
+       
+       Stage stage = new Stage();
+       stage.setScene(tableViewScene);
+       stage.show();
     }
     
     
     //third UI 
     
     @FXML
-    private void previousPage(ActionEvent event) {
-        
+    private void previousPage(ActionEvent event) throws IOException {
+       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/InfoInputScreen.fxml")); 
+       Parent InfoInputScreen = loader.load(); 
+       Scene tableViewScene = new Scene(InfoInputScreen);
+       
+       Stage stage = new Stage();
+       stage.setScene(tableViewScene);
+       stage.show();
     }
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        credentialsDropDown.getItems().add("Active Cruncher");
-        credentialsDropDown.getItems().add("Personal Trainer");
-        credentialsDropDown.getItems().add("Medical Professional");
+//        credentialsDropDown.getItems().add("Active Cruncher");
+//        credentialsDropDown.getItems().add("Personal Trainer");
+//      credentialsDropDown.getItems().add("Medical Professional");
 
 
     }    
