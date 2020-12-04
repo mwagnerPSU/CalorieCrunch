@@ -55,7 +55,7 @@
             <Font name="Rockwell" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="totalCaloriesButton" layoutX="103.0" layoutY="453.0" mnemonicParsing="false" onAction="#showTotalCalories" text="Show Total Calories " textAlignment="CENTER">
+      <Button fx:id="totalCals" layoutX="126.0" layoutY="450.0" mnemonicParsing="false" onAction="#setCalText" prefHeight="46.0" prefWidth="131.0" style="-fx-background-radius: 10px;" text="Total Calories">
          <font>
             <Font name="Rockwell" size="16.0" />
          </font>
