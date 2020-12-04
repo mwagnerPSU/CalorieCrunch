@@ -28,10 +28,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")
     , @NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.id = :id")
-    , @NamedQuery(name = "Person.findByFirstname", query = "SELECT p FROM Person p WHERE p.firstname = :firstname")
-    , @NamedQuery(name = "Person.findByLastname", query = "SELECT p FROM Person p WHERE p.lastname = :lastname")
     , @NamedQuery(name = "Person.findByCredentials", query = "SELECT p FROM Person p WHERE p.credentials = :credentials")
-    , @NamedQuery(name = "Person.findByCurrentcalories", query = "SELECT p FROM Person p WHERE p.currentcalories = :currentcalories")})
+    , @NamedQuery(name = "Person.findByCurrentcalories", query = "SELECT p FROM Person p WHERE p.currentcalories = :currentcalories")
+    , @NamedQuery(name = "Person.findByPassword", query = "SELECT p FROM Person p WHERE p.password = :password")
+    , @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p WHERE p.username = :username")})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,14 +39,14 @@ public class Person implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "FIRSTNAME")
-    private String firstname;
-    @Column(name = "LASTNAME")
-    private String lastname;
     @Column(name = "CREDENTIALS")
     private String credentials;
     @Column(name = "CURRENTCALORIES")
     private Integer currentcalories;
+    @Column(name = "PASSWORD")
+    private String password;
+    @Column(name = "USERNAME")
+    private String username;
 
     public Person() {
     }
@@ -63,22 +63,6 @@ public class Person implements Serializable {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
     public String getCredentials() {
         return credentials;
     }
@@ -93,6 +77,22 @@ public class Person implements Serializable {
 
     public void setCurrentcalories(Integer currentcalories) {
         this.currentcalories = currentcalories;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
