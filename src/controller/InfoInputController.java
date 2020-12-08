@@ -58,14 +58,8 @@ public class InfoInputController {
     }
     
     @FXML
-    private void showGoal(ActionEvent event){
-        System.out.println(calorieHolder + "show");
-        goalText.setText("2000");
-    }
-    
-    @FXML
     private void setCalText(ActionEvent event){
-        totalCaloriesText.setText("500");
+        totalCaloriesText.setText("1000");
     }
     
     @FXML
@@ -99,8 +93,8 @@ public class InfoInputController {
     @FXML
     private void checkGoal(ActionEvent event) throws IOException {
        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GoalSummaryPage.fxml")); 
-       Parent InfoInputScreen = loader.load(); 
-       Scene tableViewScene = new Scene(InfoInputScreen);
+       Parent GoalSummaryScreen = loader.load(); 
+       Scene tableViewScene = new Scene(GoalSummaryScreen);
        
        Stage stage = new Stage();
        stage.setScene(tableViewScene);
