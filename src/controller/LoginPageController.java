@@ -60,7 +60,8 @@ public class LoginPageController implements Initializable {
     private TableColumn <Person, String> credentials;
     @FXML
     private TableColumn <Person, String> currentCalories;
-  
+    
+    SearchController cont = new SearchController();
     
     
     
@@ -80,7 +81,6 @@ public class LoginPageController implements Initializable {
         */
         
         addToDropDown(); 
-       // motivationalMessage("Keep going! You still have time!");
     }
     
 
@@ -126,6 +126,7 @@ public class LoginPageController implements Initializable {
         }
         */
         if(credentialsDropDown.getValue().equals("Active Cruncher")){
+            cont.dropDownValue = credentialsDropDown.getValue().toString();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/InfoInputScreen.fxml")); 
             Parent InfoInputScreen = loader.load(); 
             Scene tableViewScene = new Scene(InfoInputScreen);
@@ -135,7 +136,7 @@ public class LoginPageController implements Initializable {
             stage.show();
             
         } else if (credentialsDropDown.getValue().equals("Personal Trainer") || credentialsDropDown.getValue().equals("Medical Professional")) {
-            
+            cont.dropDownValue = credentialsDropDown.getValue().toString();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Search.fxml")); 
             Parent searchScreen = loader.load(); 
             Scene tableViewScene = new Scene(searchScreen);
