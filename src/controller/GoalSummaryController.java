@@ -6,9 +6,12 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,7 +23,7 @@ import javafx.stage.Stage;
  *
  * @author Karina
  */
-public class GoalSummaryController {
+public class GoalSummaryController implements Initializable{
         @FXML
     private Text goalText = new Text();
     
@@ -38,8 +41,13 @@ public class GoalSummaryController {
     
     @FXML private Button showGoal;
     
+    InfoInputController cont = new InfoInputController();
+    private String calorieHolder2 = cont.calorieHolder;
     
-    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        motivationalMessage("Keep going! You still have time!");
+    }
         
     @FXML
     private void previousPage(ActionEvent event) throws IOException {
@@ -52,6 +60,12 @@ public class GoalSummaryController {
        stage.show();
     }
     
+    @FXML
+    private void showGoal(ActionEvent event){
+        System.out.println(calorieHolder2 + "show");
+        goalText.setText("2000");
+    }
+    
     @FXML 
     private void displayGoal(){
         //takes the text that was put on the previous UI intakeGoal method / text field 
@@ -59,7 +73,7 @@ public class GoalSummaryController {
     
     @FXML
     private void showCaloriesRemaining(ActionEvent event){
-        caloriesRemainingText.setText("1500");
+        caloriesRemainingText.setText("1000");
     }
     
     @FXML 
