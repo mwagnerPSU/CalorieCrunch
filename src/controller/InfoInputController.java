@@ -6,6 +6,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import model.History;
 
 /**
  *
@@ -40,6 +45,8 @@ public class InfoInputController {
     @FXML
     private Text totalCaloriesText;
     
+    EntityManager manager;
+    
      @FXML
     private Text goalText = new Text();
     
@@ -48,6 +55,36 @@ public class InfoInputController {
     
     public String calorieHolder = "Hello";
     
+    public LoginPageController loginCont = new LoginPageController();
+    
+    //public String currentUsername;
+
+//    public void setCurrentUsername(String currentUsername) {
+//        this.currentUsername = currentUsername;
+//    }
+//    
+    
+    
+    public void create(History newHistory) {
+        try {
+            // begin transaction
+            manager.getTransaction().begin();
+            
+            // sanity check
+            if (newHistory.getId() != null) {
+                
+                // create student
+                manager.persist(newHistory);
+                
+                // end transaction
+                manager.getTransaction().commit();
+                
+                System.out.println("Added: ID: " + newHistory.getId() + " | Username: " + newHistory.getUsername() + " | Date:" + newHistory.getDate() + " | Current Goal: " + newHistory.getCurrentgoal() + " | Current Calories: " + newHistory.getCurrentcalories());
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
     
         @FXML
@@ -55,6 +92,18 @@ public class InfoInputController {
         //save the goal they set to their name and ID in the table
         calorieHolder = intakeGoalField.getText();
         System.out.println(calorieHolder + "save");
+            System.out.println(loginCont.getCurrentUsername());
+            //System.out.println(currentUsername);
+        
+        History newHistory = new History();
+        
+        newHistory.setId(readAll().size() + 1);
+        newHistory.setUsername(loginCont.getCurrentUsername());
+//        newHistory.setFirstname(fName);
+//        newHistory.setLastname(lName);
+        
+        create(newHistory);
+        
     }
     
     @FXML
@@ -99,5 +148,55 @@ public class InfoInputController {
        Stage stage = new Stage();
        stage.setScene(tableViewScene);
        stage.show();
+    }
+    
+//     public void update(History model) {
+//        try {
+//
+//            MedicalProfessionalModel existingMedicalProfessional = manager.find(MedicalProfessionalModel.class, model.getId());
+//
+//            if (existingMedicalProfessional != null) {
+//                // begin transaction
+//                manager.getTransaction().begin();
+//                
+//                // update all atttributes
+//                existingMedicalProfessional.setFirstname(model.getFirstname());
+//                existingMedicalProfessional.setLastname(model.getLastname());
+//                existingMedicalProfessional.setCredentials(model.getCredentials());
+//                
+//                // end transaction
+//                manager.getTransaction().commit();
+//            }
+//        } catch (Exception ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
+    
+    
+    public History readByUsername(String username){
+        Scanner userInput = new Scanner(System.in);
+        Query query = manager.createNamedQuery("History.findByUsername");
+        
+        // setting query parameter
+        query.setParameter("username", username);
+        
+        // execute query
+        History result = (History) query.getSingleResult();
+        if (result != null){
+            System.out.println("Id: " + result.getId() + " | Username: " + result.getUsername() + " | Date" + result.getDate() + " | Current Goal: " + result.getCurrentgoal() + " | Current Calories: " + result.getCurrentcalories());
+        }
+        
+        return result;        
+    }
+    
+    public List<History> readAll(){
+        Query query = manager.createNamedQuery("History.findAll");
+        List<History> history = query.getResultList();
+
+        for (History p : history) {
+            System.out.println("ID: " + p.getId() + " | Name: " + p.getUsername() + " | Date:" + p.getDate() + " | Current Goal: " + p.getCurrentgoal() + " | Current Calories: " + p.getCurrentcalories());
+        }
+        
+        return history;
     }
 }
