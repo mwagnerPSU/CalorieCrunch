@@ -5,18 +5,13 @@
  */
 package controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javax.persistence.EntityManager;
@@ -59,11 +54,11 @@ public class CreateUserController{
 //    private ObservableList<Person> personData;
     
 //    EntityManager manager;
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//        
-//        manager = (EntityManager) Persistence.createEntityManagerFactory("CalorieCrunchFXMLPU").createEntityManager();
-//        
+    EntityManager manager;
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        manager = (EntityManager) Persistence.createEntityManagerFactory("CalorieCrunchFXMLPU").createEntityManager();
+        
 //        id.setCellValueFactory(new PropertyValueFactory<>("Id"));
 //        username.setCellValueFactory(new PropertyValueFactory<>("Username"));
 //        password.setCellValueFactory(new PropertyValueFactory<>("Password"));
@@ -71,23 +66,27 @@ public class CreateUserController{
 //        currentCalories.setCellValueFactory(new PropertyValueFactory<>("Currentcalories"));
 //
 //        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-//        
-//    }
+        
+    }
    
    //LoginPageController cont = new LoginPageController();
-    EntityManager manager;
+    
        
     public void saveUserMethod(Person person){
           try {
+              System.out.println("got here 0");
             // begin transaction
             manager.getTransaction().begin();
+              System.out.println("got here 1");
             
             // sanity check
             if (person.getId() != null) {
                 
+                System.out.println("got here 2");
         
                 manager.persist(person);
                 
+                System.out.println("got here 3");
             
                 manager.getTransaction().commit();
                 
@@ -95,7 +94,7 @@ public class CreateUserController{
                 
             }
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage() + " error");
         }  
     }
    
@@ -113,11 +112,33 @@ public class CreateUserController{
         person.setUsername(username);
         person.setPassword(password);
 
-
-
         saveUserMethod(person);
+        
+        
     } 
         
+    /*
+    public void create(MedicalProfessionalModel mpPerson) {
+        try {
+            // begin transaction
+            manager.getTransaction().begin();
+            
+            // sanity check
+            if (mpPerson.getId() != null) {
+                
+                // create student
+                manager.persist(mpPerson);
+                
+                // end transaction
+                manager.getTransaction().commit();
+                
+                System.out.println("Added: ID: " + mpPerson.getId() + " | Name: " + mpPerson.getFirstname() + " " + mpPerson.getLastname() + " | Credentials: " + mpPerson.getCredentials());
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    */
      
      
      
