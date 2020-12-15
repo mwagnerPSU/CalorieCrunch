@@ -41,6 +41,9 @@ public class PatientDataController {
 
     @FXML
     private Button signOutButton3;
+    
+    @FXML
+    private Button checkHistoryButton;
 
     @FXML
     private void viewCalories(ActionEvent event) {
@@ -69,5 +72,10 @@ public class PatientDataController {
         Stage stage = new Stage();
         stage.setScene(tableViewScene);
         stage.show();
+    }
+    
+    @FXML
+    private void checkHistory(ActionEvent event){
+        
     }
 }
