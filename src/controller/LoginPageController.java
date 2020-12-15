@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +32,7 @@ import model.Person;
  *
  * @author Owner
  */
-public class LoginPageController {    
+public class LoginPageController implements Initializable{    
     //login
     @FXML 
     private TextField usernameText; 
@@ -46,10 +47,9 @@ public class LoginPageController {
     private Button loginButton; 
     
     @FXML
-    private Button signUpButton; 
+    private Button signUpButton;    
     
-
-
+    private ArrayList<String> dropItems = new ArrayList();
 
     
     @FXML
@@ -88,6 +88,34 @@ public class LoginPageController {
             stage.setScene(tableViewScene);
             stage.show();
     }
+
+    
+   @FXML
+   private void populateDropDown(ActionEvent event){
+       credentialsDropDown.getItems().add("Active Cruncher");
+       credentialsDropDown.getItems().add("Personal Trainer");
+       credentialsDropDown.getItems().add("Medical Professional");
+   }
+
+
+   private ComboBox addToDropDown(){
+       dropItems.clear();
+       dropItems.add("Active Cruncher");
+       dropItems.add("Personal Trainer");
+       dropItems.add("Medical Professional");
+
+
+       for (Object item : dropItems) {
+           credentialsDropDown.getItems().add(item);
+       }
+
+
+       return credentialsDropDown;
+   }
+   
+   public void initialize(URL url, ResourceBundle rb) {
+       addToDropDown();
+   }
 
     
 }
