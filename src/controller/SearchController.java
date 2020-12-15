@@ -30,32 +30,35 @@ public class SearchController {
     @FXML
     private TextField searchField;
     
-    public String dropDownValue = "Personal Trainer";
+    public String dropDownValue = "";
+    
+    LoginPageController dropDown = new LoginPageController(); 
 
     @FXML
     private void search(ActionEvent event) throws IOException {
-        //search by username 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/clientDataView.fxml"));
-            Parent SearchScreen = loader.load();
-            Scene tableViewScene = new Scene(SearchScreen);
-
-            Stage stage = new Stage();
-            stage.setScene(tableViewScene);
-            stage.show();
+    
         
-        /*
-        if (dropDownValue.equals("Personal Trainer")) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/clientDataView.fxml"));
-            Parent SearchScreen = loader.load();
-            Scene tableViewScene = new Scene(SearchScreen);
-
-            Stage stage = new Stage();
-            stage.setScene(tableViewScene);
-            stage.show();
-        } else if (dropDownValue.equals("Medical Professional")) {
-            //put screen to go to
-        }
-        */
+               System.out.println("this is my shit: " +  dropDownValue); 
+        
+//        if (dropDown.getCredentialsDropDown().equals("Personal Trainer")) {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/clientDataView.fxml"));
+//            Parent SearchScreen = loader.load();
+//            Scene tableViewScene = new Scene(SearchScreen);
+//
+//            Stage stage = new Stage();
+//            stage.setScene(tableViewScene);
+//            stage.show();
+//            
+//        } else if (dropDown.getCredentialsDropDown() .equals("Medical Trainer")) {
+//           FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patientDataView.fxml"));
+//            Parent SearchScreen = loader.load();
+//            Scene tableViewScene = new Scene(SearchScreen);
+//
+//            Stage stage = new Stage();
+//            stage.setScene(tableViewScene);
+//            stage.show();
+//        }
+       
     }
 
     @FXML
