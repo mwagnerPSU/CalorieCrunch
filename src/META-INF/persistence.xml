@@ -3,6 +3,7 @@
   <persistence-unit name="CalorieCrunchFXMLPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>model.Person</class>
+    <class>model.History</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/gp3_db;create=true"/>
       <property name="javax.persistence.jdbc.user" value="APP"/>
