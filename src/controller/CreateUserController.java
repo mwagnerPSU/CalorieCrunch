@@ -27,7 +27,7 @@ import model.Person;
  *
  * @author Karina
  */
-public class CreateUserController implements Initializable  {
+public class CreateUserController{
     
    @FXML
    private Button saveUserButton; 
@@ -42,81 +42,82 @@ public class CreateUserController implements Initializable  {
    private TextField credentialsText; 
    
 
-    @FXML
-    private TableView <Person> tableView;
-    @FXML
-    private TableColumn <Person, Integer> id;
-    @FXML
-    private TableColumn <Person, String> username;
-    @FXML
-    private TableColumn <Person, String> password;
-    @FXML
-    private TableColumn <Person, String> credentials;
-    @FXML
-    private TableColumn <Person, String> currentCalories;
+//    @FXML
+//    private TableView <Person> tableView;
+//    @FXML
+//    private TableColumn <Person, Integer> id;
+//    @FXML
+//    private TableColumn <Person, String> username;
+//    @FXML
+//    private TableColumn <Person, String> password;
+//    @FXML
+//    private TableColumn <Person, String> credentials;
+//    @FXML
+//    private TableColumn <Person, String> currentCalories;
+//    
+//     
+//    private ObservableList<Person> personData;
     
-     
-    private ObservableList<Person> personData;
-    
+//    EntityManager manager;
+//    @Override
+//    public void initialize(URL url, ResourceBundle rb) {
+//        
+//        manager = (EntityManager) Persistence.createEntityManagerFactory("CalorieCrunchFXMLPU").createEntityManager();
+//        
+//        id.setCellValueFactory(new PropertyValueFactory<>("Id"));
+//        username.setCellValueFactory(new PropertyValueFactory<>("Username"));
+//        password.setCellValueFactory(new PropertyValueFactory<>("Password"));
+//        credentials.setCellValueFactory(new PropertyValueFactory<>("Credentials"));
+//        currentCalories.setCellValueFactory(new PropertyValueFactory<>("Currentcalories"));
+//
+//        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+//        
+//    }
+   
+   //LoginPageController cont = new LoginPageController();
     EntityManager manager;
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-        manager = (EntityManager) Persistence.createEntityManagerFactory("CalorieCrunchFXMLPU").createEntityManager();
-        
-        id.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        username.setCellValueFactory(new PropertyValueFactory<>("Username"));
-        password.setCellValueFactory(new PropertyValueFactory<>("Password"));
-        credentials.setCellValueFactory(new PropertyValueFactory<>("Credentials"));
-        currentCalories.setCellValueFactory(new PropertyValueFactory<>("Currentcalories"));
-
-        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        
-    }
- 
        
-   @FXML
-     private void saveUser(Person Person){
+    public void saveUserMethod(Person person){
           try {
             // begin transaction
             manager.getTransaction().begin();
             
             // sanity check
-            if (Person.getId() != null) {
+            if (person.getId() != null) {
                 
         
-                manager.persist(Person);
+                manager.persist(person);
                 
             
                 manager.getTransaction().commit();
                 
-                System.out.println(Person.toString() + " is created");
+                System.out.println(person.toString() + " is created");
                 
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }  
-     }
+    }
    
     
+    @FXML
+    public void saveUser(ActionEvent event){
+        String username = usernameText.getText();
+        String password = passwordText.getText();
+        String credentials = credentialsText.getText();
 
-public void saveUser(ActionEvent event){
-    String username = usernameText.getText();
-    String password = passwordText.getText();
-    String credentials = credentialsText.getText();
-    
-    
-    Person person = new Person(); 
-    
-    person.setCredentials(credentials);
-    person.setUsername(username);
-    person.setUsername(password);
-    
-   
-    
-    saveUser(Person);
-} 
-     
+
+        Person person = new Person(); 
+
+        person.setCredentials(credentials);
+        person.setUsername(username);
+        person.setPassword(password);
+
+
+
+        saveUserMethod(person);
+    } 
+        
      
      
      
