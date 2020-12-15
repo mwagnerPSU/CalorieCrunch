@@ -50,12 +50,30 @@ public class LoginPageController implements Initializable{
     private Button signUpButton;    
     
     private ArrayList<String> dropItems = new ArrayList();
+    
+    String currentUsername;
+    
+    //public InfoInputController infoCont = new InfoInputController();
 
+    public String getCurrentUsername() {
+        return currentUsername;
+    }
+
+    public void setCurrentUsername(String currentUsername) {
+        this.currentUsername = currentUsername;
+    }
+    
+
+    
     
     @FXML
     private void loginUser(ActionEvent event) throws IOException {
 
         if(credentialsDropDown.getValue().equals("Active Cruncher")){
+            
+            setCurrentUsername(usernameText.getText());
+            //infoCont.setCurrentUsername(currentUsername);
+            System.out.println(currentUsername);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/InfoInputScreen.fxml")); 
             Parent InfoInputScreen = loader.load(); 
@@ -64,6 +82,7 @@ public class LoginPageController implements Initializable{
             Stage stage = new Stage();
             stage.setScene(tableViewScene);
             stage.show();
+            
             
         } else if (credentialsDropDown.getValue().equals("Personal Trainer") || credentialsDropDown.getValue().equals("Medical Professional")) {
         
