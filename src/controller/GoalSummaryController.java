@@ -8,6 +8,7 @@ package controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,13 +19,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import model.History;
+import model.Person;
 
 /**
  *
  * @author Karina
  */
 public class GoalSummaryController implements Initializable{
-        @FXML
+    @FXML
     private Text goalText = new Text();
     
     @FXML
@@ -39,14 +45,31 @@ public class GoalSummaryController implements Initializable{
     @FXML
     private Button previousButton;
     
-    @FXML private Button showGoal;
+    @FXML
+    private Button showGoal;
     
-    InfoInputController cont = new InfoInputController();
-    private String calorieHolder2 = cont.calorieHolder;
-    
-    @Override
+    EntityManager manager;
     public void initialize(URL url, ResourceBundle rb) {
+        
+        manager = (EntityManager) Persistence.createEntityManagerFactory("CalorieCrunchFXMLPU").createEntityManager();
+        
         motivationalMessage("Keep going! You still have time!");
+        
+//        id.setCellValueFactory(new PropertyValueFactory<>("Id"));
+//        username.setCellValueFactory(new PropertyValueFactory<>("Username"));
+//        password.setCellValueFactory(new PropertyValueFactory<>("Password"));
+//        credentials.setCellValueFactory(new PropertyValueFactory<>("Credentials"));
+//        currentCalories.setCellValueFactory(new PropertyValueFactory<>("Currentcalories"));
+//
+//        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        
+    }
+    
+    String currentUser;
+    
+    public void initData(String username){
+        currentUser = username;
+        
     }
         
     @FXML
@@ -62,18 +85,16 @@ public class GoalSummaryController implements Initializable{
     
     @FXML
     private void showGoal(ActionEvent event){
-        System.out.println(calorieHolder2 + "show");
-        goalText.setText("2000");
-    }
-    
-    @FXML 
-    private void displayGoal(){
-        //takes the text that was put on the previous UI intakeGoal method / text field 
+        goalText.setText(String.valueOf(readByUsername(currentUser).getCurrentgoal()));
     }
     
     @FXML
     private void showCaloriesRemaining(ActionEvent event){
-        caloriesRemainingText.setText("1000");
+        int goalCals = readByUsername(currentUser).getCurrentgoal();
+        int currentCals  = readByUsername(currentUser).getCurrentcalories();
+        int calsLeft = goalCals - currentCals;
+        
+        caloriesRemainingText.setText(String.valueOf(calsLeft));
     }
     
     @FXML 
@@ -82,5 +103,50 @@ public class GoalSummaryController implements Initializable{
         motivationalMessageField.setText(message);
         
         return motivationalMessageField;
+    }
+    
+    public String readByUsernameGoal(String username){
+        Query query = manager.createNamedQuery("History.findByUsername");
+        
+        // setting query parameter
+        query.setParameter("username", username);
+        
+        // execute query
+        History result = (History) query.getSingleResult();
+        if (result != null){
+            System.out.println("Id: " + result.getId() + " | Username: " + result.getUsername() + " | Date" + result.getDate() + " | Current Goal: " + result.getCurrentgoal() + " | Current Calories: " + result.getCurrentcalories());
+        }
+        
+        return result.getCurrentgoal().toString();        
+    }
+    
+    public String readByUsernameCals(String username){
+        Query query = manager.createNamedQuery("Person.findByUsername");
+        
+        // setting query parameter
+        query.setParameter("username", username);
+        
+        // execute query
+        Person result = (Person) query.getSingleResult();
+        if (result != null){
+            System.out.println("Id: " + result.getId() + " | Username: " + result.getUsername() + " | Password" + result.getPassword() + " | Credentials: " + result.getCredentials() + " | Current Calories: " + result.getCurrentcalories());
+        }
+        
+        return result.getCurrentcalories().toString();        
+    }
+    
+    public Person readByUsername(String username){
+        Query query = manager.createNamedQuery("Person.findByUsername");
+        
+        // setting query parameter
+        query.setParameter("username", username);
+        
+        // execute query
+        Person result = (Person) query.getSingleResult();
+        if (result != null){
+            System.out.println("Id: " + result.getId() + " | Username: " + result.getUsername() + " | Password" + result.getPassword() + " | Credentials: " + result.getCredentials() + " | Current Calories: " + result.getCurrentcalories());
+        }
+        
+        return result;        
     }
 }
