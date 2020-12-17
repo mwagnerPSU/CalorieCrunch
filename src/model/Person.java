@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Person.findByCredentials", query = "SELECT p FROM Person p WHERE p.credentials = :credentials")
     , @NamedQuery(name = "Person.findByCurrentcalories", query = "SELECT p FROM Person p WHERE p.currentcalories = :currentcalories")
     , @NamedQuery(name = "Person.findByPassword", query = "SELECT p FROM Person p WHERE p.password = :password")
-    , @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p WHERE p.username = :username")})
+    , @NamedQuery(name = "Person.findByUsername", query = "SELECT p FROM Person p WHERE p.username = :username")
+    , @NamedQuery(name = "Person.findByCurrentgoal", query = "SELECT p FROM Person p WHERE p.currentgoal = :currentgoal")})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,6 +48,8 @@ public class Person implements Serializable {
     private String password;
     @Column(name = "USERNAME")
     private String username;
+    @Column(name = "CURRENTGOAL")
+    private Integer currentgoal;
 
     public Person() {
     }
@@ -93,6 +96,14 @@ public class Person implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Integer getCurrentgoal() {
+        return currentgoal;
+    }
+
+    public void setCurrentgoal(Integer currentgoal) {
+        this.currentgoal = currentgoal;
     }
 
     @Override
