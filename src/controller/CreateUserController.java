@@ -5,24 +5,33 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import model.History;
 import model.Person;
 
 /**
  *
  * @author Karina
  */
-public class CreateUserController{
+public class CreateUserController implements Initializable{
     
    @FXML
    private Button saveUserButton; 
@@ -36,41 +45,12 @@ public class CreateUserController{
    @FXML
    private TextField credentialsText; 
    
-
-//    @FXML
-//    private TableView <Person> tableView;
-//    @FXML
-//    private TableColumn <Person, Integer> id;
-//    @FXML
-//    private TableColumn <Person, String> username;
-//    @FXML
-//    private TableColumn <Person, String> password;
-//    @FXML
-//    private TableColumn <Person, String> credentials;
-//    @FXML
-//    private TableColumn <Person, String> currentCalories;
-//    
-//     
-//    private ObservableList<Person> personData;
-    
-//    EntityManager manager;
     EntityManager manager;
     public void initialize(URL url, ResourceBundle rb) {
         
         manager = (EntityManager) Persistence.createEntityManagerFactory("CalorieCrunchFXMLPU").createEntityManager();
         
-//        id.setCellValueFactory(new PropertyValueFactory<>("Id"));
-//        username.setCellValueFactory(new PropertyValueFactory<>("Username"));
-//        password.setCellValueFactory(new PropertyValueFactory<>("Password"));
-//        credentials.setCellValueFactory(new PropertyValueFactory<>("Credentials"));
-//        currentCalories.setCellValueFactory(new PropertyValueFactory<>("Currentcalories"));
-//
-//        tableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        
-    }
-   
-   //LoginPageController cont = new LoginPageController();
-    
+    }    
        
     public void saveUserMethod(Person person){
           try {
@@ -80,7 +60,7 @@ public class CreateUserController{
               System.out.println("got here 1");
             
             // sanity check
-            if (person.getId() != null) {
+            if (person.getUsername() != null) {
                 
                 System.out.println("got here 2");
         
@@ -97,13 +77,41 @@ public class CreateUserController{
             System.out.println(ex.getMessage() + " error");
         }  
     }
+    
+    public void saveUserMethodHistory(History history){
+          try {
+              System.out.println("got here 0");
+            // begin transaction
+            manager.getTransaction().begin();
+              System.out.println("got here 1");
+            
+            // sanity check
+            if (history.getUsername() != null) {
+                
+                System.out.println("got here 2");
+        
+                manager.persist(history);
+                
+                System.out.println("got here 3");
+            
+                manager.getTransaction().commit();
+                
+                System.out.println(history.toString() + " is created");
+                
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage() + " error");
+        }  
+    }
    
     
     @FXML
-    public void saveUser(ActionEvent event){
+    public void saveUser(ActionEvent event) throws IOException{
         String username = usernameText.getText();
         String password = passwordText.getText();
         String credentials = credentialsText.getText();
+        int currentCalories = 0;
+        int currentGoal = 0;
 
 
         Person person = new Person(); 
@@ -111,39 +119,43 @@ public class CreateUserController{
         person.setCredentials(credentials);
         person.setUsername(username);
         person.setPassword(password);
+        person.setId(readAll().size() + 1);
+        person.setCurrentcalories(currentCalories);
+        person.setCurrentgoal(currentGoal);
 
         saveUserMethod(person);
         
+        History history = new History();
         
+        history.setId(readAllHistory().size() + 1);
+        history.setUsername(username);
+        history.setDate(new Date());
+        history.setCurrentgoal(currentGoal);
+        history.setCurrentcalories(currentCalories);
+        
+        saveUserMethodHistory(history);
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/LoginPage.fxml")); 
+        Parent searchScreen = loader.load(); 
+        Scene tableViewScene = new Scene(searchScreen);
+        LoginPageController loginCont = loader.getController();
+
+        Stage stage = new Stage();
+        stage.setScene(tableViewScene);
+        stage.show();
     } 
+    
+    public List<Person> readAll(){
+        Query query = manager.createNamedQuery("Person.findAll");
+        List<Person> persons = query.getResultList();
         
-    /*
-    public void create(MedicalProfessionalModel mpPerson) {
-        try {
-            // begin transaction
-            manager.getTransaction().begin();
-            
-            // sanity check
-            if (mpPerson.getId() != null) {
-                
-                // create student
-                manager.persist(mpPerson);
-                
-                // end transaction
-                manager.getTransaction().commit();
-                
-                System.out.println("Added: ID: " + mpPerson.getId() + " | Name: " + mpPerson.getFirstname() + " " + mpPerson.getLastname() + " | Credentials: " + mpPerson.getCredentials());
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
+        return persons;
     }
-    */
-     
-     
-     
-     
-     
-     
-     
+    
+    public List<History> readAllHistory(){
+        Query query = manager.createNamedQuery("History.findAll");
+        List<History> historys = query.getResultList();
+        
+        return historys;
+    }
 }
