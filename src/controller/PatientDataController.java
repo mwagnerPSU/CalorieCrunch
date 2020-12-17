@@ -44,7 +44,13 @@ public class PatientDataController {
     
     @FXML
     private Button checkHistoryButton;
+    
+    public String searchedUsername;
 
+    public void initData(String searchedUser){
+        searchedUsername = searchedUser;
+    }
+    
     @FXML
     private void viewCalories(ActionEvent event) {
         //view the clients current calorie intake
@@ -54,6 +60,7 @@ public class PatientDataController {
     @FXML
     private void setGoal(ActionEvent event) {
         //allow trainer to set clients goal 
+        
     }
 
     @FXML
