@@ -52,12 +52,12 @@ public class SearchController {
             stage.setScene(tableViewScene);
             stage.show();
 
-        } else if (credentials.equals("Medical Trainer")) {
+        } else if (credentials.equals("Medical Professional")) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patientDataView.fxml"));
             Parent SearchScreen = loader.load();
             Scene tableViewScene = new Scene(SearchScreen);
-            ClientDataController clientCont = loader.getController();
-            clientCont.initData(searchField.getText());
+            PatientDataController patientCont = loader.getController();
+            patientCont.initData(searchField.getText());
 
             Stage stage = new Stage();
             stage.setScene(tableViewScene);
