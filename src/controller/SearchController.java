@@ -29,36 +29,41 @@ public class SearchController {
 
     @FXML
     private TextField searchField;
-    
-    public String dropDownValue = "";
-    
-    LoginPageController dropDown = new LoginPageController(); 
 
+    String currentUser;
+    String credentials;
+
+    public void initData(String username, String creds){
+        currentUser = username;
+        credentials = creds;
+    }
+    
     @FXML
     private void search(ActionEvent event) throws IOException {
-    
-        
-               System.out.println("this is my shit: " +  dropDownValue); 
-        
-//        if (dropDown.getCredentialsDropDown().equals("Personal Trainer")) {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/clientDataView.fxml"));
-//            Parent SearchScreen = loader.load();
-//            Scene tableViewScene = new Scene(SearchScreen);
-//
-//            Stage stage = new Stage();
-//            stage.setScene(tableViewScene);
-//            stage.show();
-//            
-//        } else if (dropDown.getCredentialsDropDown() .equals("Medical Trainer")) {
-//           FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patientDataView.fxml"));
-//            Parent SearchScreen = loader.load();
-//            Scene tableViewScene = new Scene(SearchScreen);
-//
-//            Stage stage = new Stage();
-//            stage.setScene(tableViewScene);
-//            stage.show();
-//        }
-       
+
+        if (credentials.equals("Personal Trainer")) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/clientDataView.fxml"));
+            Parent SearchScreen = loader.load();
+            Scene tableViewScene = new Scene(SearchScreen);
+            ClientDataController clientCont = loader.getController();
+            clientCont.initData(searchField.getText());
+            
+            Stage stage = new Stage();
+            stage.setScene(tableViewScene);
+            stage.show();
+
+        } else if (credentials.equals("Medical Trainer")) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/patientDataView.fxml"));
+            Parent SearchScreen = loader.load();
+            Scene tableViewScene = new Scene(SearchScreen);
+            ClientDataController clientCont = loader.getController();
+            clientCont.initData(searchField.getText());
+
+            Stage stage = new Stage();
+            stage.setScene(tableViewScene);
+            stage.show();
+        }
+
     }
 
     @FXML
