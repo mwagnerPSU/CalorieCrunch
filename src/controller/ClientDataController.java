@@ -6,7 +6,9 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 import model.History;
 
@@ -53,6 +56,12 @@ public class ClientDataController {
     public String searchedUsername;
     
     EntityManager manager;
+    
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        manager = (EntityManager) Persistence.createEntityManagerFactory("CalorieCrunchFXMLPU").createEntityManager();
+        
+    }
     
     public void initData(String searchedUser){
         searchedUsername = searchedUser;
@@ -95,8 +104,16 @@ public class ClientDataController {
     }
     
     @FXML
-    private void checkHistory(ActionEvent event){
-        
+    private void checkHistory(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HistoryView.fxml"));
+        Parent LoginScreen = loader.load();
+        Scene tableViewScene = new Scene(LoginScreen);
+        HistoryController historyCont = loader.getController();
+        historyCont.initData(searchedUsername);
+
+        Stage stage = new Stage();
+        stage.setScene(tableViewScene);
+        stage.show();
     }
     
     public void createHistory(History newHistory) {
