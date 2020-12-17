@@ -63,21 +63,17 @@ public class LoginPageController implements Initializable{
         this.currentUsername = currentUsername;
     }
     
-
-    
     
     @FXML
     private void loginUser(ActionEvent event) throws IOException {
 
         if(credentialsDropDown.getValue().equals("Active Cruncher")){
-            
-            setCurrentUsername(usernameText.getText());
-            //infoCont.setCurrentUsername(currentUsername);
-            System.out.println(currentUsername);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/InfoInputScreen.fxml")); 
             Parent InfoInputScreen = loader.load(); 
             Scene tableViewScene = new Scene(InfoInputScreen);
+            InfoInputController infoController = loader.getController();
+            infoController.initData(usernameText.getText(), credentialsDropDown.getValue().toString());
 
             Stage stage = new Stage();
             stage.setScene(tableViewScene);
@@ -89,6 +85,8 @@ public class LoginPageController implements Initializable{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Search.fxml")); 
             Parent searchScreen = loader.load(); 
             Scene tableViewScene = new Scene(searchScreen);
+            SearchController searchCont = loader.getController();
+            searchCont.initData(usernameText.getText(), credentialsDropDown.getValue().toString());
 
             Stage stage = new Stage();
             stage.setScene(tableViewScene);
