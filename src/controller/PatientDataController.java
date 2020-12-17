@@ -6,6 +6,9 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Date;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +17,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import model.History;
 
 /**
  *
@@ -46,6 +53,14 @@ public class PatientDataController {
     private Button checkHistoryButton;
     
     public String searchedUsername;
+    
+    EntityManager manager;
+    
+    public void initialize(URL url, ResourceBundle rb) {
+        
+        manager = (EntityManager) Persistence.createEntityManagerFactory("CalorieCrunchFXMLPU").createEntityManager();
+        
+    }
 
     public void initData(String searchedUser){
         searchedUsername = searchedUser;
@@ -54,12 +69,20 @@ public class PatientDataController {
     @FXML
     private void viewCalories(ActionEvent event) {
         //view the clients current calorie intake
-        calorieViewField.setText("1000");
+        calorieViewField.setText(readByUsernameCalS(searchedUsername));
     }
 
     @FXML
     private void setGoal(ActionEvent event) {
         //allow trainer to set clients goal 
+        History newHistory = new History();
+        newHistory.setId(readByUsernameID(searchedUsername));
+        newHistory.setUsername(searchedUsername);
+        newHistory.setDate(new Date());
+        newHistory.setCurrentgoal(Integer.parseInt(setGoalField.getText()));
+        newHistory.setCurrentcalories(readByUsernameCals(searchedUsername));
+        
+        createHistory(newHistory);
         
     }
 
@@ -82,7 +105,81 @@ public class PatientDataController {
     }
     
     @FXML
-    private void checkHistory(ActionEvent event){
+    private void checkHistory(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HistoryView.fxml"));
+        Parent LoginScreen = loader.load();
+        Scene tableViewScene = new Scene(LoginScreen);
+        HistoryController historyCont = loader.getController();
+        historyCont.initData(searchedUsername);
+
+        Stage stage = new Stage();
+        stage.setScene(tableViewScene);
+        stage.show();
+    }
+    
+     public void createHistory(History newHistory) {
+        try {
+            // begin transaction
+            manager.getTransaction().begin();
+            
+            // sanity check
+            if (newHistory.getId() != null) {
+                
+                // create student
+                manager.persist(newHistory);
+                
+                // end transaction
+                manager.getTransaction().commit();
+                
+                System.out.println("Added: ID: " + newHistory.getId() + " | Username: " + newHistory.getUsername() + " | Date:" + newHistory.getDate() + " | Current Goal: " + newHistory.getCurrentgoal() + " | Current Calories: " + newHistory.getCurrentcalories());
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public int readByUsernameID(String username){
+        Query query = manager.createNamedQuery("History.findByUsername");
         
+        // setting query parameter
+        query.setParameter("username", username);
+        
+        // execute query
+        History result = (History) query.getSingleResult();
+        if (result != null){
+            System.out.println("Id: " + result.getId() + " | Username: " + result.getUsername() + " | Date" + result.getDate() + " | Current Goal: " + result.getCurrentgoal() + " | Current Calories: " + result.getCurrentcalories());
+        }
+        
+        return result.getId();        
+    }
+    
+    public int readByUsernameCals(String username){
+        Query query = manager.createNamedQuery("History.findByUsername");
+        
+        // setting query parameter
+        query.setParameter("username", username);
+        
+        // execute query
+        History result = (History) query.getSingleResult();
+        if (result != null){
+            System.out.println("Id: " + result.getId() + " | Username: " + result.getUsername() + " | Date" + result.getDate() + " | Current Goal: " + result.getCurrentgoal() + " | Current Calories: " + result.getCurrentcalories());
+        }
+        
+        return result.getCurrentcalories();        
+    }
+    
+    public String readByUsernameCalS(String username){
+        Query query = manager.createNamedQuery("History.findByUsername");
+        
+        // setting query parameter
+        query.setParameter("username", username);
+        
+        // execute query
+        History result = (History) query.getSingleResult();
+        if (result != null){
+            System.out.println("Id: " + result.getId() + " | Username: " + result.getUsername() + " | Date" + result.getDate() + " | Current Goal: " + result.getCurrentgoal() + " | Current Calories: " + result.getCurrentcalories());
+        }
+        
+        return result.getCurrentcalories().toString();        
     }
 }
